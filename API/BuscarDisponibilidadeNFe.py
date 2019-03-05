@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
-from UTIL import Browser, Autorizador
+from UTIL import Browser, Autorizador, Html
 
 URL_SEFAZ = "http://www.nfe.fazenda.gov.br/portal/disponibilidade.aspx"
 
@@ -36,26 +36,18 @@ def verifica_disponibilidade(versao, autorizador):
 
 	html = Browser.carrega_pagina(URL_SEFAZ)
 	table = html.find(id = TABLE_V_4_00 if versao == '4' else TABLE_V_3_10)
-	rows = table.findChildren(['tr'])
-	dataRows = []
-
-	for row in rows:
-		cells = row.findChildren('td')
-		dataCells = []
-		for cell in cells:
-			dataCells.append(cell)
-		dataRows.append(dataCells)
-
-	for data in dataRows:
-		if str(data).find(autorizador) != -1:
-			result['Autorizador'] = data[0].text
-			result['Autorizacao'] = status(data[1])
-			result['RetornoAutorizacao'] = status(data[2])
-			result['Inutilizacao'] = status(data[3])
-			result['ConsultaProtocolo'] = status(data[4])
-			result['StatusServico'] = status(data[5])
-			result['TempoMedio'] = data[6].text
-			result['ConsultaCadastro'] = status(data[7]) 
-			result['RecepcaoEvento'] = status(data[8])
+	linhas = Html.carrega_tabela(table)
+	
+	for linha in linhas:
+		if str(linha).find(autorizador) != -1:
+			result['Autorizador'] = linha[0].text
+			result['Autorizacao'] = status(linha[1])
+			result['RetornoAutorizacao'] = status(linha[2])
+			result['Inutilizacao'] = status(linha[3])
+			result['ConsultaProtocolo'] = status(linha[4])
+			result['StatusServico'] = status(linha[5])
+			result['TempoMedio'] = linha[6].text
+			result['ConsultaCadastro'] = status(linha[7]) 
+			result['RecepcaoEvento'] = status(linha[8])
 	
 	return result

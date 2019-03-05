@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
-from UTIL import Browser, Autorizador
+from UTIL import Browser, Autorizador, Html
 
 URL_SEFAZ_NFCE = "http://www.nfce.se.gov.br/portal/ConStatusAuto?Origem=1"
 
@@ -25,25 +25,16 @@ def verifica_disponibilidade(autorizador):
 		return result
 
 	html = Browser.carrega_pagina(URL_SEFAZ_NFCE)
-	rows = html.findChildren(['tr'])
-	dataRows = []
-
-	for row in rows:
-		cells = row.findChildren('td')
-		dataCells = []
-		for cell in cells:
-			dataCells.append(cell)
-		dataRows.append(dataCells)
-
+	linhas = Html.carrega_tabela(html)
 	autorizador = Autorizador.pega_autorizador_nfce(autorizador)
 
-	for data in dataRows:
-		if str(data).find(autorizador) != -1:
+	for linha in linhas:
+		if str(linha).find(autorizador) != -1:
 			result['Autorizador'] = autorizador
-			result['Status'] = status(data[1])
-			result['Menor'] = data[2].text
-			result['Maior'] = data[3].text
-			result['Media'] = data[4].text
+			result['Status'] = status(linha[1])
+			result['Menor'] = linha[2].text
+			result['Maior'] = linha[3].text
+			result['Media'] = linha[4].text
 			break
 
 	return result
