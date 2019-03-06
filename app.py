@@ -8,7 +8,7 @@ import os
 
 app = Flask(__name__)
 
-@app.route('/nfe/disponibilidade/', methods=['GET'])
+@app.route('/nfe/', methods=['GET'])
 def buscar_disponibilidade_nfe():
 	versao = request.args.get('versao', default = '4', type=str)
 	autorizador = request.args.get('autorizador', default = '', type=str)
@@ -16,7 +16,7 @@ def buscar_disponibilidade_nfe():
 	json = NFe.verifica_disponibilidade(versao, autorizador.upper())
 	return jsonify(json)
 
-@app.route('/nfce/disponibilidade/', methods=['GET'])
+@app.route('/nfce/', methods=['GET'])
 def buscar_disponibilidade_nfce():
 	autorizador = request.args.get('autorizador', default='', type=str)
 	
