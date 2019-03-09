@@ -1,0 +1,51 @@
+{%- extends "base.html" %}
+{% import "bootstrap/utils.html" as utils %}
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+			<table class="table table-striped">
+			  <tbody>
+				<tr>
+					<td>Autorizador</td>
+					<td>{{ data['Autorizador'] }}</td>
+				</tr>
+				<tr>
+					<td>Autorização</td>
+					<td>{{ data['Autorizacao'] }}</td>
+				</tr>
+				<tr>
+					<td>Retorno Autorização</td>
+					<td>{{ data['RetornoAutorizacao'] }}</td>
+				</tr>
+				<tr>
+					<td>Inutilização</td>
+					<td>{{ data['Inutilizacao'] }}</td>
+				</tr>
+				<tr>
+					<td>Consulta Protocolo</td>
+					<td>{{ data['ConsultaProtocolo'] }}</td>
+                </tr>
+                <tr>
+                    <td>Status Serviço</td>
+                    <td>{{ data['StatusServico'] }}</td>
+                </tr>
+                <tr>
+                    <td>Tempo Médio</td>
+                    <td>{{ data['TempoMedio'] }}</td>
+                </tr>
+                <tr>
+                    <td>Consulta Cadastro</td>
+                    <td>{{ data['ConsultaProtocolo'] }}</td>
+                </tr>
+                <tr>
+                    <td>Tempo Médio</td>
+                    <td>{{ data['RecepcaoEvento'] }}</td>
+                </tr>
+			  </tbody>
+			</table>
+			<div class="pull-right">
+				<a class="btn btn-danger" type=submit href="{{ url_for('index') }}">Voltar</a>
+			</div>
+        </div>
+    </div>
+{%- endblock %}

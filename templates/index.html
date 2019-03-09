@@ -1,0 +1,23 @@
+{%- extends "base.html" %}
+{% import "bootstrap/utils.html" as utils %}
+{% block content %}
+  <div class="container">
+    <div class="jumbotron" id="principal">
+      <h2>Disponibilidade SEFAZ</h2>
+      <form action = "/" method = post class="form-group">
+        <fieldset>
+          <div class="row">
+            <div class="col-md-2">
+              {{ form.tipo(class_="form-control") }}
+            </div>
+            <div class="col-md-4">
+              {{ form.estados(class_="form-control") }}
+            </div>
+            <div class="col-md-2">
+              {{ form.consultar(class_="btn btn-success") }}
+            </div>
+          </div>
+        </fieldset>
+    </div>
+  </div>
+{%- endblock %}
